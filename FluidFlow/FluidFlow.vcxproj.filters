@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\shaders">
+      <UniqueIdentifier>{846de90e-b03c-4ed6-a7eb-6dfd70f6734e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\glad.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="simulation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="simulation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\fragment_shader.frag">
+      <Filter>Source Files\shaders</Filter>
+    </None>
+    <None Include="shaders\vertex_shader.vert">
+      <Filter>Source Files\shaders</Filter>
+    </None>
+    <None Include="shaders\window.frag">
+      <Filter>Source Files\shaders</Filter>
+    </None>
+    <None Include="shaders\window.vert">
+      <Filter>Source Files\shaders</Filter>
+    </None>
+    <None Include="shaders\fluid\advection.frag" />
+    <None Include="shaders\fluid\advection.vert" />
+    <None Include="shaders\background_shader.frag" />
+    <None Include="shaders\background_shader.vert" />
+    <None Include="shaders\fluid\picture_shader.frag" />
+    <None Include="shaders\fluid\picture_shader.vert" />
+    <None Include="shaders\fluid\initial_vfield.vert" />
+    <None Include="shaders\fluid\initial_vfield.frag" />
+    <None Include="shaders\fluid\diffusion.vert" />
+    <None Include="shaders\fluid\diffusion.frag" />
+    <None Include="shaders\fluid\force_shader.vert" />
+    <None Include="shaders\fluid\force_shader.frag" />
+    <None Include="shaders\fluid\pressure.frag" />
+    <None Include="shaders\fluid\pressure.vert" />
+    <None Include="shaders\fluid\projection.frag" />
+    <None Include="shaders\fluid\projection.vert" />
+    <None Include="shaders\fluid\boundary.frag" />
+    <None Include="shaders\fluid\boundary.vert" />
+  </ItemGroup>
+</Project>

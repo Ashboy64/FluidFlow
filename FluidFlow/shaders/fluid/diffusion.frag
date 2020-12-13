@@ -21,7 +21,7 @@ void main() {
 				texture(velocityTexture, vec2(texCoords.x, texCoords.y - offsetY)).xy +
 				texture(velocityTexture, vec2(texCoords.x, texCoords.y + offsetY)).xy;
 	
-	float coeff = offsetX*offsetY / (viscosity*(1.0/fps));
+	float coeff = 1.0 / (viscosity*(1.0/fps));
 	vec4 curr = texture(velocityTexture, texCoords);
 	sum = sum + vec2(coeff * curr.x, coeff * curr.y);
 

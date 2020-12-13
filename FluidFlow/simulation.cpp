@@ -7,13 +7,15 @@
 
 #include "shader.h"
 #include "simulation.h"
+#include<windows.h>
+
 
 Simulation::Simulation() {
 	// GLFW provides basic functionality to define an OpenGL context and application window
 	initGLFW();
 
-	width = 1000;
-	height = 1000;
+	width = 1920;
+	height = 1080;
 
 	// create window and set gl context
 	window = createWindow();
@@ -95,6 +97,8 @@ void Simulation::advection() {
 	glBindVertexArray(screenVAO);
 	advectionShader.use();
 	advectionShader.setFloat("fps", millisecondsPerFrame);
+	advectionShader.setFloat("width", width);
+	advectionShader.setFloat("height", height);
 
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);	// unbinding VAO
@@ -112,7 +116,7 @@ void Simulation::diffusion() {
 	diffusionShader.use();
 	diffusionShader.setFloat("width", width);
 	diffusionShader.setFloat("height", height);
-	diffusionShader.setFloat("viscosity", 1.0f / 100.0f);
+	diffusionShader.setFloat("viscosity", 1.0f / 1000000.0f);
 	diffusionShader.setInt("velocityTexture", 0);
 	diffusionShader.setFloat("fps", millisecondsPerFrame);
 
@@ -137,16 +141,41 @@ void Simulation::forceApplication() {
 	force_shader.setFloat("width", width);
 	force_shader.setFloat("height", height);
 	force_shader.setFloat("fps", millisecondsPerFrame);
-	force_shader.setFloat("magnitude_x", 1.0f * (forceX - previousX));
-	force_shader.setFloat("magnitude_y", -1.0f * (forceY - previousY));
-	force_shader.setFloat("xPos", previousX);
-	force_shader.setFloat("yPos", previousY);
+	force_shader.setFloat("magnitude_x", 1000.0f * (forceX - previousX) / width);
+	force_shader.setFloat("magnitude_y", -1000.0f * (forceY - previousY) / height);
+	force_shader.setFloat("xPos", (forceX - (width / 2.0)) / (width / 2.0));
+	force_shader.setFloat("yPos", -1.0f * (forceY - (height / 2.0)) / (height / 2.0));
 
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
 
 	swapBuffers(intermediateVelocityTexture, velocityFramebuffer);
 }
+
+
+void Simulation::dyeApplication() {
+	glBindFramebuffer(GL_FRAMEBUFFER, intermediatePictureFramebuffer);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, pictureTexture);
+	glBindVertexArray(screenVAO);
+
+	force_shader.use();
+	force_shader.setInt("velocityTexture", 0);
+	force_shader.setFloat("width", width);
+	force_shader.setFloat("height", height);
+	force_shader.setFloat("fps", millisecondsPerFrame);
+	force_shader.setFloat("magnitude_x", 1.0f * (forceX - previousX) / width);
+	force_shader.setFloat("magnitude_y", -1.0f * (forceY - previousY) / height);
+	force_shader.setFloat("xPos", (previousX - (width / 2.0)) / (width / 2.0));
+	force_shader.setFloat("yPos", -1.0f * (previousY - (height / 2.0)) / (height / 2.0));
+
+	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+	glBindVertexArray(0);
+
+	swapBuffers(intermediatePictureTexture, pictureFramebuffer);
+
+}
+
 
 
 void Simulation::pressureSolve() {
@@ -243,6 +272,8 @@ void Simulation::newImage() {
 	pictureShader.setInt("velocityTexture", 0);
 	pictureShader.setInt("pictureTexture", 1);
 	pictureShader.setFloat("fps", millisecondsPerFrame);
+	pictureShader.setFloat("width", width);
+	pictureShader.setFloat("height", height);
 
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);	// unbinding VAO
@@ -257,6 +288,7 @@ void Simulation::swapToMain() {
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	screenShader.use();
+	// screenShader.setBool("swappingMain", true);
 
 	glBindVertexArray(screenVAO);
 	glActiveTexture(GL_TEXTURE0);
@@ -275,6 +307,7 @@ void Simulation::swapBuffers(unsigned int sourceTexture, unsigned int targetFram
 	glBindVertexArray(screenVAO);
 
 	screenShader.use();
+	screenShader.setBool("swappingMain", false);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
 
@@ -482,8 +515,8 @@ unsigned int Simulation::sceneBackground() {
 }
 
 unsigned int Simulation::sceneData() {
-	float offsetX = 0.50f * 1000.0f / width;
-	float offsetY = 0.50f * 1000.0f / height;
+	float offsetX = 0.5f * 1000.0f / width;
+	float offsetY = 0.5f * 1000.0f / height;
 
 	float vertices[] = {
 		-offsetX, -offsetY, 0.0f,

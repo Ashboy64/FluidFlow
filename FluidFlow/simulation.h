@@ -48,6 +48,8 @@ private:
 	void projectToDivergenceFree();
 	void boundaryConditions();
 
+	void dyeApplication();
+
 	// compute new image using current image and vel field
 	void newImage();
 	// draws pictureFramebuffer on actual screen

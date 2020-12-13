@@ -20,9 +20,9 @@ void main() {
 
 	float distX = windowCoords.x - xPos;
 	float distY = windowCoords.y - yPos;
-	float dist = sqrt(distX*distX + distY*distY);
+	float dist_s = (distX*distX) + (distY*distY);
 
-	float coeff = exp(-1.0 * dist*dist / (width * height * (1.0 / 16.0)));
+	float coeff = exp(-1.0 * dist_s / (0.001));
 	vec2 change = vec2(coeff * magnitude_x, coeff * magnitude_y);
 
 	vec4 curr = texture(velocityTexture, texCoords);

@@ -18,9 +18,9 @@ void main() {
 	float gY =	texture(pressureTexture, vec2(texCoords.x, texCoords.y + offsetY)).x -
 				texture(pressureTexture, vec2(texCoords.x, texCoords.y - offsetY)).x;
 	
-	gX = gX / (2.0 * offsetX);
-	gY = gY / (2.0 * offsetY);
+	gX = gX / (2.0 * 1);
+	gY = gY / (2.0 * 1);
 
 	vec4 curr = texture(velocityTexture, texCoords);
-	fragColor = vec4(curr.x - gX, curr.y - gY, curr.z, curr.w);
+	fragColor = vec4(curr.x - (1.0)*gX, curr.y - gY, curr.z, curr.w);
 }

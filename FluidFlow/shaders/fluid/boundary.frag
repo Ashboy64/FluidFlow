@@ -19,8 +19,8 @@ void main() {
 	bool x = true;
 	float multiplier = 1.0;
 
-	float boundsX = offsetX;
-	float boundsY = offsetY;
+	float boundsX = (width - 998.0) / (2.0 * width);
+	float boundsY = (height - 998.0) / (2.0 * height);
 
 	if (texCoords.x <= boundsX) {
 		if (velocity) {

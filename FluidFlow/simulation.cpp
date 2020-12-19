@@ -7,15 +7,15 @@
 
 #include "shader.h"
 #include "simulation.h"
-#include<windows.h>
+#include <windows.h>
 
 
 Simulation::Simulation() {
 	// GLFW provides basic functionality to define an OpenGL context and application window
 	initGLFW();
 
-	width = 1920;
-	height = 1080;
+	width = 1000;
+	height = 1000;
 
 	// create window and set gl context
 	window = createWindow();
